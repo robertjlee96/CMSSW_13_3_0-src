@@ -15,8 +15,6 @@
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ServiceRegistry/interface/ServiceMaker.h"
 
-#include "EventFilter/Utilities/plugins/TestProducer.h"
-
 using namespace edm::serviceregistry;
 using namespace evf;
 
@@ -35,5 +33,3 @@ DEFINE_FWK_MODULE(EvFOutputModule);
 DEFINE_FWK_MODULE(DaqFakeReader);
 DEFINE_FWK_INPUT_SOURCE(FedRawDataInputSource);
 DEFINE_FWK_INPUT_SOURCE(DAQSource);
-
-DEFINE_FWK_MODULE(TestProducer);
