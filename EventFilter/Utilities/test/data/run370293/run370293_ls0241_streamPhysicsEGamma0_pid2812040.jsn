@@ -1,0 +1,17 @@
+{
+   "data" : [
+      "1000",
+      "20",
+      "0",
+      "0",
+      "run370293_ls0241_streamPhysicsEGamma0_pid2812040.dat",
+      "25239752",
+      "",
+      "160758873",
+      "Failsafe",
+      "DAT",
+      "0"
+   ],
+   "definition" : "data/run370293/output_2812040.jsd",
+   "source" : "lxplus811.cern.ch_2812040"
+}

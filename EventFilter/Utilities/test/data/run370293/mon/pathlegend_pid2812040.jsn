@@ -1,0 +1,12 @@
+{
+   "names" : [
+      "NoPath",
+      "HLT_Diphoton30_22_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass90_v19",
+      "HLT_Diphoton30_22_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass95_v19",
+      "HLT_Diphoton_MVATest",
+      "Dataset_EGamma0",
+      "Dataset_EGamma1",
+      "@finalPath"
+   ],
+   "reserved" : 1
+}

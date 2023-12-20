@@ -13,6 +13,8 @@
 
 #include "DataFormats/EcalRecHit/interface/EcalRecHitCollections.h"
 #include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
+
+#include "EventFilter/Utilities/interface/photonMvaEstimator.h"
 namespace edm {
   class ConfigurationDescriptions;
 }
@@ -25,18 +27,24 @@ public:
   static void fillDescriptions(edm::ConfigurationDescriptions &descriptions);
 
 private:
-  void produce(edm::Event &, edm::EventSetup const &) override;
+    void produce(edm::Event &, edm::EventSetup const &) override;
 
   //edm::EDGetTokenT<trigger::TriggerFilterObjectWithRefs> candToken_; //use if reading from a filter
-  edm::EDGetTokenT<reco::RecoEcalCandidateCollection> candToken_; //use if reading from a producer
-  edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenR9_;
-  edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenHoE_;
-  edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenSigmaiEtaiEta_;
-  edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenIso_;
+    edm::EDGetTokenT<reco::RecoEcalCandidateCollection> candToken_; //use if reading from a producer
+    edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenR9_;
+    edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenHoE_;
+    edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenSigmaiEtaiEta_;
+    edm::EDGetTokenT<reco::RecoEcalCandidateIsolationMap> tokenIso_;
 
-  const edm::EDGetTokenT<EcalRecHitCollection> ecalRechitEBToken_;
-  const edm::EDGetTokenT<EcalRecHitCollection> ecalRechitEEToken_;
-  const EcalClusterLazyTools::ESGetTokens ecalClusterToolsESGetTokens_;
+    const edm::EDGetTokenT<EcalRecHitCollection> ecalRechitEBToken_;
+    const edm::EDGetTokenT<EcalRecHitCollection> ecalRechitEEToken_;
+    const EcalClusterLazyTools::ESGetTokens ecalClusterToolsESGetTokens_;
+    
+    const edm::FileInPath mvaFileB_;
+    const edm::FileInPath mvaFileE_;
+    
+    std::unique_ptr<const photonMvaEstimator> mvaEstimatorB_;
+    std::unique_ptr<const photonMvaEstimator> mvaEstimatorE_;
 
 };
 

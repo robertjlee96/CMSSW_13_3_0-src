@@ -10392,6 +10392,8 @@ process.HLTDiphotonMVATestProducer = cms.EDProducer("MVATestProducer",
     inputTagIso = cms.InputTag("hltEgammaEcalPFClusterIsoUnseeded"),
     ecalRechitEB = cms.InputTag( 'hltEcalRecHit','EcalRecHitsEB' ),
     ecalRechitEE = cms.InputTag( 'hltEcalRecHit','EcalRecHitsEE' ),
+    mvaFileB = cms.FileInPath("/afs/cern.ch/work/r/rlee/public/CMSSW_13_3_0/src/xgbModels/M7L25_GGH13andDataD_NoTrkIso_M60_PdgIDCut_1213_Barrel.xml"),
+    mvaFileE = cms.FileInPath("/afs/cern.ch/work/r/rlee/public/CMSSW_13_3_0/src/xgbModels/M7L25_GGH13andDataD_NoTrkIso_M60_PdgIDCut_1213_Endcap.xml")
 )
 process.HLTDiphotonMVATestFilter = cms.EDFilter("MVATestFilter",
     inputTag = cms.InputTag( "HLTDiphotonMVATestProducer" ),
@@ -11674,7 +11676,7 @@ process.hltOutputPhysicsEGamma1 = cms.OutputModule( "GlobalEvFOutputModule",
       'keep edmTriggerResults_*_*_*',
       'keep triggerTriggerEvent_*_*_*' ),
     psetMap = cms.untracked.InputTag( "hltPSetMap" )
-)
+    )
 
 process.HLTDoFullUnpackingEgammaEcalWithoutPreshowerTask = cms.ConditionalTask( process.hltEcalDigisLegacy , process.hltEcalDigisGPU , process.hltEcalDigisFromGPU , process.hltEcalDigis , process.hltEcalDetIdToBeRecovered , process.hltEcalUncalibRecHitLegacy , process.hltEcalUncalibRecHitGPU , process.hltEcalUncalibRecHitSoA , process.hltEcalUncalibRecHitFromSoA , process.hltEcalUncalibRecHit , process.hltEcalRecHit )
 process.HLTPreshowerTask = cms.ConditionalTask( process.hltEcalPreshowerDigis , process.hltEcalPreshowerRecHit )
@@ -11870,6 +11872,30 @@ process.hltDatasetEGamma = cms.EDFilter( "TriggerResultsFilter",
       'HLT_Diphoton_MVATest',
   )
 )
+
+# add a single "keep *" output
+process.hltOutputMinimal = cms.OutputModule( "PoolOutputModule",
+    fileName = cms.untracked.string( "output.root" ),
+    fastCloning = cms.untracked.bool( False ),
+    dataset = cms.untracked.PSet(
+        dataTier = cms.untracked.string( 'AOD' ),
+        filterName = cms.untracked.string( '' )
+    ),
+    outputCommands = cms.untracked.vstring( 'drop *',
+        'keep edmTriggerResults_*_*_*',
+        'keep triggerTriggerEvent_*_*_*',
+        'keep GlobalAlgBlkBXVector_*_*_*',                  
+        'keep GlobalExtBlkBXVector_*_*_*',
+        'keep l1tEGammaBXVector_*_EGamma_*',
+        'keep l1tEtSumBXVector_*_EtSum_*',
+        'keep l1tJetBXVector_*_Jet_*',
+        'keep l1tMuonBXVector_*_Muon_*',
+        'keep l1tTauBXVector_*_Tau_*',
+    )
+)
+process.MinimalOutput = cms.FinalPath( process.hltOutputMinimal )
+process.schedule.append( process.MinimalOutput )
+
 
 try:
    os.makedirs('data/run'+options.runNumber)

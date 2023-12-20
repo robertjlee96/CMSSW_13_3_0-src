@@ -12,6 +12,7 @@
   <use name="CLHEP"/>
   <use name="boost"/>
   <use name="root"/>
+  <use name="CommonTools/MVAUtils"/>
   <use name="stdcxx-fs"/>
   <flags EDM_PLUGIN="1"/>
 </library>
